@@ -32,7 +32,7 @@ public class WaveSpawner : MonoBehaviour {
     void SpawnEnemy() {
         NameCount++;
         Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
-        enemyPrefab.name = "Enemy" + NameCount;
+      enemyPrefab.name = "Enemy" + NameCount;
         
             
     }

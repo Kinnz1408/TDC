@@ -5,7 +5,7 @@ using UnityEngine.AI;
 // ESSE FUNCIONA FILHO DA PUTA !!!!!!!!!!!!!
 public class Navmesh : MonoBehaviour
 {
-   public Transform target;
+    private Transform target;
     private string NameToStats;
     private bool AttackEnable;
     NavMeshAgent agent;
@@ -95,7 +95,7 @@ public class Navmesh : MonoBehaviour
 
     void Attack() {
 
-       EnemyStats.HP -= 10;
+        EnemyStats.HP -= EnemyStats.DamageToDeal;       
        
 
     }

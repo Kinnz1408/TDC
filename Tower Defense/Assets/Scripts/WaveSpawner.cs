@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class WaveSpawner : MonoBehaviour {
+public class WaveSpawner : MonoBehaviour
+{
     public Transform enemyPrefab;
     public float timeBetweenWaves;
     public float countdown;
@@ -9,15 +10,18 @@ public class WaveSpawner : MonoBehaviour {
     public Transform SpawnPoint;
     public float DistanceTimeBetweenSpawn;
     int NameCount;
+   
     private void Update()
     {
-        if (countdown <= 0) {
+        if (countdown <= 0)
+        {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
         }
         countdown -= Time.deltaTime;
     }
-    IEnumerator SpawnWave() {
+    IEnumerator SpawnWave()
+    {
         WaveNumer++;
 
 
@@ -27,13 +31,15 @@ public class WaveSpawner : MonoBehaviour {
             yield return new WaitForSeconds(DistanceTimeBetweenSpawn);
         }
 
-        
+
     }
-    void SpawnEnemy() {
+    void SpawnEnemy()
+    {
         NameCount++;
         Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
-      enemyPrefab.name = "Enemy" + NameCount;
-        
-            
+        enemyPrefab.name = "Enemy" + NameCount;
+
+
     }
+   
 }

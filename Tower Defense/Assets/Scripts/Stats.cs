@@ -22,7 +22,7 @@ public class Stats : MonoBehaviour {
         GameObject UiManager = GameObject.Find("Ui");
         MyUi = UiManager.GetComponent<Ui>();
         DamageToDeal = Attack / 2 + Defense / 100;
-        Debug.Log(DamageToDeal);
+     //   Debug.Log(DamageToDeal);
 
     }
 	

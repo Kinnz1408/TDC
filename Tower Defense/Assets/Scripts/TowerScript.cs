@@ -5,16 +5,15 @@ using UnityEngine;
 public class TowerScript : MonoBehaviour {
 	private Transform target;
 	private string NameToStats;
-	private bool AttackEnable;
-	public bool CheckNav;
+    private bool AttackEnable;
 	public GameObject NameEnemy;
-	//public string FinalDestinationName;
-	//GameObject FinalDestinationObject;
 	public string TagToChase;
 	public float TimeBetweenAttack;
 	private float ResetTimetoAttack;
 	private Stats EnemyStats;
     public Transform PauseCanvas;
+    public Transform Bullet;
+    public Transform SpawnPoint;
 
 
 
@@ -92,7 +91,7 @@ public class TowerScript : MonoBehaviour {
 				NameEnemy = GameObject.Find(contact2);
 				target = this.NameEnemy.transform;
 				NameToStats = contact2;
-				Debug.Log(contact2);
+				//Debug.Log(contact2);
 				EnemyStats=GameObject.Find(NameToStats).GetComponent<Stats>();
 			}
 		}
@@ -100,10 +99,13 @@ public class TowerScript : MonoBehaviour {
 
 	void Attack() {
 
-		EnemyStats.HP -= ((Atk*(2^Level)) +Level*550) /2;   
+	//	EnemyStats.HP -= ((Atk*(2^Level)) +Level*550) /2;
+        Instantiate(Bullet, SpawnPoint.position, SpawnPoint.rotation);
+        Debug.Log("Torre Atacou");
+      
 
 
-	}
+    }
     public void Pause()
     {
         if (PauseCanvas.gameObject.activeInHierarchy == false)

@@ -5,16 +5,24 @@ public class WaveSpawner : MonoBehaviour
 {
     public Transform enemyPrefab;
     public float timeBetweenWaves;
-    public float countdown;
+    private float countdown;
     private int WaveNumer;
     public Transform SpawnPoint;
     public float DistanceTimeBetweenSpawn;
     int NameCount;
-   
+
+
+    private void Start()
+    {
+        countdown = timeBetweenWaves;
+    }
+
     private void Update()
     {
         if (countdown <= 0)
         {
+            // Respawn tá automatico tá aqui , ficar esperto .
+           // timeBetweenWaves =  Random.Range(3, 10);
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
         }

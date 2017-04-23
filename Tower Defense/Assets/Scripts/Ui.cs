@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class Ui : MonoBehaviour {
     public Text GoldText;
     public int Gold;
+    public Transform towerCanvas;
+    public Transform towerCanvas1;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -20,5 +22,52 @@ public class Ui : MonoBehaviour {
     public void AddGold() {
 
         Gold++;
+    }
+    public void TowerCanvas()
+    {
+
+        if (towerCanvas1.gameObject.activeInHierarchy == true) {
+
+            towerCanvas1.gameObject.SetActive(false);
+        }
+
+        if (towerCanvas.gameObject.activeInHierarchy == false)
+        {
+
+            towerCanvas.gameObject.SetActive(true);
+
+
+        }
+        else
+        {
+            towerCanvas.gameObject.SetActive(false);
+
+
+        }
+
+    }
+    public void TowerCanvas01()
+    {
+
+        if (towerCanvas.gameObject.activeInHierarchy == true)
+        {
+
+            towerCanvas.gameObject.SetActive(false);
+        }
+
+        if (towerCanvas1.gameObject.activeInHierarchy == false)
+        {
+
+            towerCanvas1.gameObject.SetActive(true);
+
+
+        }
+        else
+        {
+            towerCanvas1.gameObject.SetActive(false);
+
+
+        }
+
     }
 }

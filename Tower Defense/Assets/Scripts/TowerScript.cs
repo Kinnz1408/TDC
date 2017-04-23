@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerScript : MonoBehaviour {
 	private Transform target;
@@ -9,11 +10,13 @@ public class TowerScript : MonoBehaviour {
 	public GameObject NameEnemy;
 	public string TagToChase;
 	public float TimeBetweenAttack;
-	private float ResetTimetoAttack;
-	private Stats EnemyStats;
-    public Transform PauseCanvas;
+	public float ResetTimetoAttack;
+	public Stats EnemyStats;
     public Transform Bullet;
     public Transform SpawnPoint;
+    public bool isAEnemyTower;
+    Ui ui;
+    public Slider MySlider;
 
 
 
@@ -31,15 +34,24 @@ public class TowerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        MySlider.maxValue = HP;
 		AttackEnable = false;
 		ResetTimetoAttack = TimeBetweenAttack;
-		//FinalDestinationObject = GameObject.Find(FinalDestinationName);
-		//target = FinalDestinationObject.transform;
+        ui = GameObject.Find("Ui").GetComponent<Ui>();
+		
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (HP< 0){
+
+            Destroy(gameObject);
+        }
+
+
+
+        MySlider.value = HP;
 		
 		if (!this.target)
 		{
@@ -68,15 +80,8 @@ public class TowerScript : MonoBehaviour {
 
 	IEnumerator AttackEnemyEnumerator()
 	{
-
-
 		Attack();
 		yield return new WaitForSeconds(TimeBetweenAttack);
-
-
-
-
-
 	}
 
 
@@ -96,36 +101,50 @@ public class TowerScript : MonoBehaviour {
 			}
 		}
 	}
+    void OnTriggerStay(Collider collision)
+    {
+        {
+            if (collision.gameObject.tag == TagToChase)
+            {
+                //   string contact = collision.transform.name;
+                AttackEnable = true;
+                string contact2 = collision.gameObject.name;
+                NameEnemy = GameObject.Find(contact2);
+                target = this.NameEnemy.transform;
+                NameToStats = contact2;
+                //Debug.Log(contact2);
+                EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
+            }
+        }
+    }
 
-	void Attack() {
+    void Attack() {
 
-	//	EnemyStats.HP -= ((Atk*(2^Level)) +Level*550) /2;
+		
         Instantiate(Bullet, SpawnPoint.position, SpawnPoint.rotation);
+      //  EnemyStats.HP -= ((Atk * (2 ^ Level)) + Level * 550) / 2;
         Debug.Log("Torre Atacou");
       
 
 
     }
-    public void Pause()
-    {
-        if (PauseCanvas.gameObject.activeInHierarchy == false)
-        {
-
-            PauseCanvas.gameObject.SetActive(true);
-           
-            
-        }
-        else
-        {
-            PauseCanvas.gameObject.SetActive(false);
-            
-           
-        }
-
-    }
+  
     void OnMouseDown()
     {
-        Pause();
+        if (!isAEnemyTower)
+        {
+            if (this.gameObject.name == "TowerB")
+            {
+                ui.TowerCanvas();
+            }
+            else ui.TowerCanvas01();
+
+        }
+        else Debug.Log("Essa é uma Torre Inimiga");
+       
+
+
+        
     }
 
 

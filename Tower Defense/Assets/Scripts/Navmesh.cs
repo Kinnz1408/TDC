@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Navmesh : MonoBehaviour
 {
+    public bool IsEnemy;
     public Transform target;
     private string NameToStats;
     private bool AttackEnable;
@@ -20,18 +21,72 @@ public class Navmesh : MonoBehaviour
     public bool Tower;
     TowerScript ThisTower;
     public Vector3 RangedToAtk;
+    SpawnPlayer spawnPlayer;
+
+    public int HP;
+    public int attack;
+    public int Defense;
+    
+
+
+
+    private void Awake()
+    {
+        
+    }
 
     // Use this for initialization
     void Start()
     {
+        if (GameObject.Find("TowerA") == null)
+        {
+            FinalDestinationName = "TowerA (1)";
+
+        }
+        if (GameObject.Find("TowerA (1)") == null)
+        {
+            FinalDestinationName = "TowerA";
+
+        }
+        ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
+        agent = GetComponent<NavMeshAgent>();
+        spawnPlayer = GameObject.Find("Ui").GetComponent<SpawnPlayer>();
+       
+
+
+
+      
+
+            FinalDestinationName = spawnPlayer.FinalDestination;
+            FinalDestinationObject = GameObject.Find(spawnPlayer.FinalDestination);
+
+
+           //  target = GameObject.Find(FinalDestinationName).transform;
+
+
+         
+
+
+        
+        target = GameObject.Find(FinalDestinationName).transform;
+
+
+
+
         Enemy = false;
         Tower = false;
         AttackEnable = false;
         ResetTimetoAttack = TimeBetweenAttack;
-        agent = GetComponent<NavMeshAgent>();
-        FinalDestinationObject = GameObject.Find(FinalDestinationName);
-        target = FinalDestinationObject.transform;
-        ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
+
+
+
+        
+        
+
+
+      
+
+
 
     }
 
@@ -39,24 +94,20 @@ public class Navmesh : MonoBehaviour
     void Update()
     {
 
-       
+        if (GameObject.Find("TowerA") == null)
+        {
+            FinalDestinationName = "TowerA (1)";
+            FinalDestinationObject = GameObject.Find(FinalDestinationName);
+
+        }
+        if (GameObject.Find("TowerA (1)") == null)
+        {
+            FinalDestinationName = "TowerA";
+            FinalDestinationObject = GameObject.Find(FinalDestinationName);
+
+        }
 
 
-
-
-
-
-    }
-
-
-
-    IEnumerator AttackEnemyEnumerator()
-    {
-        Attack();
-        yield return new WaitForSeconds(TimeBetweenAttack);
-    }
-    private void FixedUpdate()
-    {
         if (!this.target)
         {
             AttackEnable = false;
@@ -78,6 +129,28 @@ public class Navmesh : MonoBehaviour
             }
             ResetTimetoAttack -= Time.deltaTime;
         }
+
+
+
+
+
+    }
+
+
+
+    IEnumerator AttackEnemyEnumerator()
+    {
+        Attack();
+        yield return new WaitForSeconds(TimeBetweenAttack);
+    }
+    private void FixedUpdate()
+    {
+
+
+       
+
+
+
     }
 
     void OnTriggerEnter(Collider collision)
@@ -92,7 +165,7 @@ public class Navmesh : MonoBehaviour
                 NameEnemy = GameObject.Find(contact2);
                 target = this.NameEnemy.transform;
                 NameToStats = contact2;
-                Debug.Log(contact2);
+             //   Debug.Log(contact2);
                 EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
             }
             if (collision.gameObject.name == FinalDestinationName)
@@ -107,6 +180,7 @@ public class Navmesh : MonoBehaviour
                 //  Debug.Log(contact2);
 
             }
+            
         }
     }
     void OnTriggerStay(Collider other) {
@@ -119,7 +193,7 @@ public class Navmesh : MonoBehaviour
             NameEnemy = GameObject.Find(contact2);
             target = this.NameEnemy.transform;
             NameToStats = contact2;
-            Debug.Log(contact2);
+         //   Debug.Log(contact2);
             EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
         }
         if (other.gameObject.name == FinalDestinationName)
@@ -142,18 +216,20 @@ public class Navmesh : MonoBehaviour
         void Attack() {
 
         if (Enemy) {
-            EnemyStats.HP -= EnemyStats.DamageToDeal;
+            EnemyStats.HP -= attack / (2 + EnemyStats.Defense / 100);
+            
+            
         }
 
 
         if (Tower) {
-       //     Debug.Log("Ataquei a Torre , viu");
+      
             ThisTower.HP -= 20;
         }
-           
-        
-        
-        
+        Debug.Log(EnemyStats.HP);
+
+
+
     }
     void Move (){
 
@@ -173,6 +249,8 @@ public class Navmesh : MonoBehaviour
 
 
     }
+
+    
 
 
 

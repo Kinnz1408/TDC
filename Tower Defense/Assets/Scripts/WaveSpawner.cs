@@ -21,8 +21,7 @@ public class WaveSpawner : MonoBehaviour
     {
         if (countdown <= 0)
         {
-            // Respawn tá automatico tá aqui , ficar esperto .
-           // timeBetweenWaves =  Random.Range(3, 10);
+           
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
         }
@@ -35,10 +34,17 @@ public class WaveSpawner : MonoBehaviour
 
         for (int i = 0; i < WaveNumer; i++)
         {
+            
+            if (WaveNumer >= 3)
+            {
+                WaveNumer = 1;
+
+            }
             SpawnEnemy();
             yield return new WaitForSeconds(DistanceTimeBetweenSpawn);
-        }
 
+        }
+        
 
     }
     void SpawnEnemy()

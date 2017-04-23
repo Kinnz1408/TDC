@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BulletTower : MonoBehaviour {
     private Transform target;
+    private string targetName;
     [SerializeField] float spd;
     [SerializeField] float rayCastOffset;
     [SerializeField] float rotationalDamp;
     [SerializeField] float detectionDistance;
     TowerScript thisTower;
     public string TowerName;
+    Stats stats;
 
 
 
@@ -18,6 +20,7 @@ public class BulletTower : MonoBehaviour {
     {
         thisTower = GameObject.Find(TowerName).GetComponent<TowerScript>();
         target = thisTower.NameEnemy.transform;
+        targetName = target.gameObject.name;
     }
     void Update () {
 
@@ -75,6 +78,18 @@ public class BulletTower : MonoBehaviour {
 
 
     }
-   
-  
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.name == targetName) {
+           
+            stats = GameObject.Find(col.gameObject.name).GetComponent<Stats>();
+            stats.HP -= ((thisTower.Atk * (2 ^ thisTower.Level)) + thisTower.Level * 550) / 2;
+            Debug.Log(stats.HP);
+            Destroy(gameObject);
+        }
+        
+    }
+
+
 }

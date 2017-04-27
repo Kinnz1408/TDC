@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletTower : MonoBehaviour {
-    private Transform target;
-    private string targetName;
+    [HideInInspector] private Transform target;
+    [HideInInspector] private string targetName;
     [SerializeField] float spd;
-    [SerializeField] float rayCastOffset;
+    [HideInInspector]    [SerializeField] float rayCastOffset;
     [SerializeField] float rotationalDamp;
-    [SerializeField] float detectionDistance;
+    [HideInInspector] [SerializeField] float detectionDistance;
     TowerScript thisTower;
-    public string TowerName;
+    [HideInInspector] public string TowerName;
     Stats stats;
 
 

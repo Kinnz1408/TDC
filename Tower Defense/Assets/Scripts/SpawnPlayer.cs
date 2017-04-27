@@ -6,23 +6,26 @@ using UnityEngine.UI;
 public class SpawnPlayer : MonoBehaviour {
 
     // Fazer Array para os Enemys
+   
+    [HideInInspector] public float countdown; 
+    [HideInInspector] public Transform SpawnPoint;
+    [HideInInspector] public Transform[] SpawnPosition;
+    [HideInInspector] int NameCount;
+    [HideInInspector] public bool ButtonOn;
+    Ui MyUI;  
+    [HideInInspector] public bool isSpawning; 
+    [HideInInspector] public string FinalDestination;
+    [HideInInspector] public bool shutOffCanvas;
+
+    [Header("Core")]
     public Transform[] enemyPrefab;
     public float timeBetweenWaves;
-    public float countdown;
-    public int [] WaveNumer;
-    public Transform SpawnPoint;
-    public Transform[] SpawnPosition;
-    int NameCount;
-    public bool ButtonOn;
-    Ui MyUI;
-    public int MinValueToSpawn;
+    public int[] WaveNumer;
     public int[] SpawnWaveCust;
-    public bool isSpawning;
     public float timeBetweenEnemies;
-    public string FinalDestination;
-    
-    
-    
+
+
+
     // Use this for initialization
     void Start() {
         GameObject UiManager = GameObject.Find("Ui");
@@ -34,36 +37,45 @@ public class SpawnPlayer : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         countdown -= Time.deltaTime;
+       
     }
     public void SetButtonOn()
     {
         ButtonOn = true;
     }
     public void SpawnAlly01() {
-        if (countdown <= 0 && ButtonOn == true && MyUI.Gold > MinValueToSpawn + SpawnWaveCust[0])
+        if (countdown <= 0 && ButtonOn == true && MyUI.Gold >=  SpawnWaveCust[0])
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
             ButtonOn = false;
-            MyUI.Gold -= MinValueToSpawn + SpawnWaveCust[0];
+            MyUI.Gold -=   SpawnWaveCust[0];
+            shutOffCanvas= true;
         }
+        else shutOffCanvas = false;
+    
     }
     public void SpawnAlly02() {
-        if (countdown <= 0 && ButtonOn == true && MyUI.Gold > MinValueToSpawn + SpawnWaveCust[1])
+        if (countdown <= 0 && ButtonOn == true && MyUI.Gold >=   SpawnWaveCust[1])
         {
             StartCoroutine(SpawnWave1());
             countdown = timeBetweenWaves;
             ButtonOn = false;
-            MyUI.Gold -= MinValueToSpawn + SpawnWaveCust[1];
+            MyUI.Gold -=  SpawnWaveCust[1];
+            shutOffCanvas = true;
         }
+        else shutOffCanvas = false;
     }
     public void SpawnAlly03() {
-        if (countdown <= 0 && ButtonOn == true && MyUI.Gold > MinValueToSpawn + SpawnWaveCust[2])
+        if (countdown <= 0 && ButtonOn == true && MyUI.Gold >=   SpawnWaveCust[2])
         {
+            StartCoroutine(SpawnWave2());
             countdown = timeBetweenWaves;
-            NameCount++;        
-            MyUI.Gold -= MinValueToSpawn + SpawnWaveCust[2];
+            ButtonOn = false;
+            MyUI.Gold -=  SpawnWaveCust[2];
+            shutOffCanvas = true;
         }
+        else shutOffCanvas = false;
     }
     public void Spawn(){
         NameCount++;
@@ -77,6 +89,7 @@ public class SpawnPlayer : MonoBehaviour {
     }
     public void Spawn2()
     {
+        NameCount++;
         Instantiate(enemyPrefab[2], SpawnPoint.position, SpawnPoint.rotation);
         enemyPrefab[2].name = "EnemyC" + NameCount;
         ButtonOn = false;
@@ -99,19 +112,36 @@ public class SpawnPlayer : MonoBehaviour {
     }
     IEnumerator SpawnWave1()
     {
+
         for (int i = 0; i < WaveNumer[1]; i++)
         {
+            isSpawning = true;
             Spawn1();
-            yield return new WaitForSeconds(1f);
+            if (i == WaveNumer[1] - 1)
+            {
+                timeBetweenEnemies = 0;
+            }
+            yield return new WaitForSeconds(timeBetweenEnemies);
+
         }
+        isSpawning = false;
+        timeBetweenEnemies = 1;
     }
     IEnumerator SpawnWave2()
     {
         for (int i = 0; i < WaveNumer[2]; i++)
         {
+            isSpawning = true;
             Spawn2();
-            yield return new WaitForSeconds(1f);
+            if (i == WaveNumer[2] - 1)
+            {
+                timeBetweenEnemies = 0;
+            }
+            yield return new WaitForSeconds(timeBetweenEnemies);
+
         }
+        isSpawning = false;
+        timeBetweenEnemies = 1;
     }
 
     public void ChangeSpawnPosition() {

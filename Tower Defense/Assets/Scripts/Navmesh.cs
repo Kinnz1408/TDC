@@ -4,29 +4,37 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Navmesh : MonoBehaviour
 {
-    public bool IsEnemy;
-    public Transform target;
+
+    [HideInInspector] public Transform target;
     private string NameToStats;
     private bool AttackEnable;
-    NavMeshAgent agent;
-    public bool CheckNav;
-    public GameObject NameEnemy;
-    public string FinalDestinationName;
+    [HideInInspector] NavMeshAgent agent;
+    [HideInInspector] public GameObject NameEnemy;
+
     GameObject FinalDestinationObject;
-    public string TagToChase;
-    public float TimeBetweenAttack;
-    private float ResetTimetoAttack;
-    private Stats EnemyStats;
-    public bool Enemy;
-    public bool Tower;
+    [HideInInspector] public bool Enemy;
+    [HideInInspector] public bool Tower;
+
+    [HideInInspector] public float ResetTimetoAttack;
+    [HideInInspector] private Stats EnemyStats;
+   
     TowerScript ThisTower;
-    public Vector3 RangedToAtk;
+    
     SpawnPlayer spawnPlayer;
 
+   
+    [Header("Core")]
+    public string FinalDestinationName;
+    public string TagToChase;
+    public float TimeBetweenAttack;
+    public Vector3 RangedToAtk;
+    [Header("Tô fazendo")]
     public int HP;
     public int attack;
     public int Defense;
-    
+
+    //Para bruno 
+
 
 
 
@@ -48,7 +56,7 @@ public class Navmesh : MonoBehaviour
             FinalDestinationName = "TowerA";
 
         }
-        ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
+        
         agent = GetComponent<NavMeshAgent>();
         spawnPlayer = GameObject.Find("Ui").GetComponent<SpawnPlayer>();
        
@@ -178,6 +186,7 @@ public class Navmesh : MonoBehaviour
                 target = this.NameEnemy.transform;
                 NameToStats = contact2;
                 //  Debug.Log(contact2);
+                ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
 
             }
             
@@ -206,6 +215,7 @@ public class Navmesh : MonoBehaviour
             target = this.NameEnemy.transform;
             NameToStats = contact2;
             //  Debug.Log(contact2);
+            ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
 
         }
 
@@ -226,7 +236,7 @@ public class Navmesh : MonoBehaviour
       
             ThisTower.HP -= 20;
         }
-        Debug.Log(EnemyStats.HP);
+       
 
 
 

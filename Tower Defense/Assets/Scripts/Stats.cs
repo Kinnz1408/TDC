@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
 {
+    [HideInInspector] public Slider HealthBar;
+   
+    Ui MyUi;
+
+    [Header("Status")]
     public float HP;
     public int Attack;
     public int Defense;
-    public bool Enemy;
-    Ui MyUi;
+    public bool Enemy; // Só para saber quando Adicionar Gold para o Jogador 
 
-    [Header("Health Bar")]
-    public Slider HealthBar;
 
 
 
@@ -27,6 +29,7 @@ public class Stats : MonoBehaviour
         GameObject UiManager = GameObject.Find("Ui");
         MyUi = UiManager.GetComponent<Ui>();
         
+        
       //  DamageToDeal = Attack / 2 + Defense / 100;
         //   Debug.Log(DamageToDeal);
 
@@ -35,7 +38,8 @@ public class Stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        HealthBar.GetComponent<RectTransform>().transform.eulerAngles = new Vector3(0, 0, 0);
+
         HealthBar.value = HP;
 
 

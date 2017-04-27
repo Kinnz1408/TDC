@@ -40,14 +40,14 @@ MonoBehaviour:
     y: 0
     width: 929
     height: 420
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,10 +68,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 733
-  m_MinSize: {x: 683, y: 492}
+  m_MinSize: {x: 681, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 9
+  controlID: 112
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -116,8 +116,8 @@ MonoBehaviour:
     y: 0
     width: 296
     height: 420
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -170,7 +170,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 783
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &8
 MonoBehaviour:
@@ -233,10 +233,10 @@ MonoBehaviour:
     y: 0
     width: 1225
     height: 733
-  m_MinSize: {x: 406, y: 492}
+  m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 113
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -257,10 +257,10 @@ MonoBehaviour:
     y: 0
     width: 1225
     height: 420
-  m_MinSize: {x: 406, y: 221}
-  m_MaxSize: {x: 8006, y: 4021}
+  m_MinSize: {x: 404, y: 221}
+  m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 114
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -324,19 +324,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefab/Balas
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefab/Balas
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\HenriqueL\Documents\GitHub\TDC\Tower Defense
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d02a0000
-    m_LastClickedID: 10960
-    m_ExpandedIDs: 00000000682a000000ca9a3bffffff7f
+    m_SelectedIDs: 60250000
+    m_LastClickedID: 9568
+    m_ExpandedIDs: 00000000082500008a26000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -364,7 +364,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000682a0000942a00000a2b0000
+    m_ExpandedIDs: 0000000008250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -482,21 +482,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: c4f3efff140bf0ff260bf0ff2e0bf0ff4a0bf0ffb40df0ffc60df0ffce0df0fffc45f0ffac47f0ff5e69f0ff6069f0ff7e6af0ff8a6af0ffa6a8f0ffb2a8f0ffccaaf0ffceaaf0ffd8aaf0ff76abf0fff8eaf0fffaeaf0ff8aecf0ff0afbf0ff0cfbf0ff16fbf0ff0600f1ff1800f1ff2200f1ff1682f1ff2082f1ff8884f1ffd485f1ff5c94f1ff72a9f1ff50f4f8ffd468f9ff3694ffff04e7ffff26e7ffff58e7ffff00000000
+    m_ExpandedIDs: c063fcffda63fcff0eb1fcff26b1fcff2ab1fcffbefbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: EnemyA3(Clone)
+      m_OriginalName: EnemyA3(Clone)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -208264
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -532,14 +532,14 @@ MonoBehaviour:
     width: 925
     height: 399
   m_SceneLighting: 1
-  lastFramingTime: 27864.08785246844
+  lastFramingTime: 4029.266309004822
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 16.86201, y: 5.1983976, z: 8.387838}
+    m_Target: {x: 9.898135, y: -2.4913836, z: 5.639717}
     speed: 2
-    m_Value: {x: 16.86201, y: 5.1983976, z: 8.387838}
+    m_Value: {x: 9.898135, y: -2.4913836, z: 5.639717}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -562,18 +562,18 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.2509754, y: -0.4758056, z: 0.14371766, w: 0.8306417}
+    m_Target: {x: 0.356972, y: 0.07638371, z: -0.029302621, w: 0.9305256}
     speed: 2
-    m_Value: {x: 0.2509754, y: -0.4758056, z: 0.14371766, w: 0.8306417}
+    m_Value: {x: 0.356972, y: 0.07638371, z: -0.029302621, w: 0.9305256}
   m_Size:
-    m_Target: 17.823912
+    m_Target: 42.05661
     speed: 2
-    m_Value: 17.823912
+    m_Value: 42.05661
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
-  m_LastSceneViewRotation: {x: 0.30188304, y: -0.036875393, z: 0.011646982, w: 0.9525603}
+  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -625,7 +625,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1

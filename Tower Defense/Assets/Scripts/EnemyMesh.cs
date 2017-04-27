@@ -5,24 +5,25 @@ using UnityEngine.AI;
 
 public class EnemyMesh : MonoBehaviour
 {
-    public bool IsEnemy;
-    public Transform target;
-    private string NameToStats;
-    private bool AttackEnable;
-    NavMeshAgent agent;
-    public bool CheckNav;
-    public GameObject NameEnemy;
+    [HideInInspector] public Transform target;
+    [HideInInspector] private string NameToStats;
+    [HideInInspector] private bool AttackEnable;
+    [HideInInspector] NavMeshAgent agent;
+    [HideInInspector] public GameObject NameEnemy; 
+    [HideInInspector] GameObject FinalDestinationObject;  
+    [HideInInspector] private float ResetTimetoAttack;
+    [HideInInspector] private Stats EnemyStats;
+    [HideInInspector] public bool Enemy;
+    [HideInInspector] public bool Tower;
+    TowerScript ThisTower;
+  
+    SpawnPlayer spawnPlayer;
+
+    [Header("Core")]
     public string FinalDestinationName;
-    GameObject FinalDestinationObject;
     public string TagToChase;
     public float TimeBetweenAttack;
-    private float ResetTimetoAttack;
-    private Stats EnemyStats;
-    public bool Enemy;
-    public bool Tower;
-    TowerScript ThisTower;
     public Vector3 RangedToAtk;
-    SpawnPlayer spawnPlayer;
 
     void Start()
     {
@@ -48,7 +49,7 @@ public class EnemyMesh : MonoBehaviour
        
 
 
-        ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
+        
 
         
         FinalDestinationObject = GameObject.Find(FinalDestinationName);
@@ -147,6 +148,7 @@ public class EnemyMesh : MonoBehaviour
                 target = this.NameEnemy.transform;
                 NameToStats = contact2;
                 //  Debug.Log(contact2);
+                ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
 
             }
 
@@ -176,6 +178,7 @@ public class EnemyMesh : MonoBehaviour
             target = this.NameEnemy.transform;
             NameToStats = contact2;
             //  Debug.Log(contact2);
+            ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
 
         }
 

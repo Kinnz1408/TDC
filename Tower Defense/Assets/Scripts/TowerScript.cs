@@ -4,26 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TowerScript : MonoBehaviour {
-	private Transform target;
-	private string NameToStats;
-    private bool AttackEnable;
-	public GameObject NameEnemy;
-	public string TagToChase;
-	public float TimeBetweenAttack;
-	public float ResetTimetoAttack;
-	public Stats EnemyStats;
-    public Transform Bullet;
-    public Transform SpawnPoint;
-    public bool isAEnemyTower;
+    [HideInInspector] private Transform target;
+    [HideInInspector] private string NameToStats;
+    [HideInInspector] private bool AttackEnable;
+    [HideInInspector] public GameObject NameEnemy;	
+    [HideInInspector] public float ResetTimetoAttack;
+    [HideInInspector] public Stats EnemyStats;
+    [HideInInspector] public Transform Bullet;
+    [HideInInspector] public Transform SpawnPoint;
+   
     Ui ui;
-    public Slider MySlider;
+    [HideInInspector] public Slider MySlider;
 
-
-
+    [Header("Core")]
+    public bool isAEnemyTower;
+    public string TagToChase;
+    public float TimeBetweenAttack;
 
 
     // Status Torre
-
+    [Header("Status")]
     public int Level;
 	public int HP;
 	public int Atk;
@@ -44,7 +44,7 @@ public class TowerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (HP< 0){
+        if (HP<= 0){
 
             Destroy(gameObject);
         }

@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Ui : MonoBehaviour {
-    public Text GoldText;
+    [HideInInspector] public Text GoldText;
     public int Gold;
-    public Transform towerCanvas;
-    public Transform towerCanvas1;
+    [HideInInspector] public Transform towerCanvas;
+    [HideInInspector] public Transform towerCanvas1;
+    SpawnPlayer Sp;
 
 
     // Use this for initialization
     void Start () {
+        Sp = GameObject.Find("Ui").GetComponent<SpawnPlayer>();
 		
 	}
 	
@@ -68,6 +70,30 @@ public class Ui : MonoBehaviour {
 
 
         }
+
+    }
+    public void SetCanvasOff() { 
+        if (towerCanvas.gameObject.activeInHierarchy == true&&Sp.shutOffCanvas)
+        {
+
+            towerCanvas.gameObject.SetActive(false);
+        } else if (towerCanvas1.gameObject.activeInHierarchy == true && Sp.shutOffCanvas)
+        {
+
+            towerCanvas1.gameObject.SetActive(false);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

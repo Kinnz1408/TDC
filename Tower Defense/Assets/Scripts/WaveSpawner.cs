@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public Transform enemyPrefab;
+    [HideInInspector] public Transform enemyPrefab;
     public float timeBetweenWaves;
     private float countdown;
     private int WaveNumer;
-    public Transform SpawnPoint;
+    [HideInInspector] public Transform SpawnPoint;
     public float DistanceTimeBetweenSpawn;
     int NameCount;
 

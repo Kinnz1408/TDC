@@ -8,8 +8,8 @@ public class SpawnPlayer : MonoBehaviour {
     // Fazer Array para os Enemys
    
     [HideInInspector] public float countdown; 
-    [HideInInspector] public Transform SpawnPoint;
-    [HideInInspector] public Transform[] SpawnPosition;
+   [HideInInspector] public Transform SpawnPoint;
+     public Transform[] SpawnPosition;
     [HideInInspector] int NameCount;
     [HideInInspector] public bool ButtonOn;
     Ui MyUI;  

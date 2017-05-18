@@ -5,10 +5,12 @@ using UnityEngine.AI;
 public class Navmesh : MonoBehaviour
 {
 
+
     [HideInInspector] public Transform target;
     private string NameToStats;
-    private bool AttackEnable;
+    public bool AttackEnable;
     [HideInInspector] NavMeshAgent agent;
+    [HideInInspector] FieldOfView my_FieldOfView;
     [HideInInspector] public GameObject NameEnemy;
 
     GameObject FinalDestinationObject;
@@ -17,12 +19,12 @@ public class Navmesh : MonoBehaviour
 
     [HideInInspector] public float ResetTimetoAttack;
     [HideInInspector] private Stats EnemyStats;
-   
-    TowerScript ThisTower;
-    
+
+    // TowerScript ThisTower;
+
     SpawnPlayer spawnPlayer;
 
-   
+
     [Header("Core")]
     public string FinalDestinationName;
     public string TagToChase;
@@ -33,6 +35,7 @@ public class Navmesh : MonoBehaviour
     public int attack;
     public int Defense;
 
+
     //Para bruno 
 
 
@@ -40,7 +43,7 @@ public class Navmesh : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     // Use this for initialization
@@ -56,26 +59,27 @@ public class Navmesh : MonoBehaviour
             FinalDestinationName = "TowerA";
 
         }
-        
+
         agent = GetComponent<NavMeshAgent>();
+        my_FieldOfView = GetComponent<FieldOfView>();
         spawnPlayer = GameObject.Find("Ui").GetComponent<SpawnPlayer>();
-       
 
 
 
-      
-
-            FinalDestinationName = spawnPlayer.FinalDestination;
-            FinalDestinationObject = GameObject.Find(spawnPlayer.FinalDestination);
 
 
-           //  target = GameObject.Find(FinalDestinationName).transform;
 
 
-         
+        FinalDestinationName = spawnPlayer.FinalDestination;
+        FinalDestinationObject = GameObject.Find(spawnPlayer.FinalDestination);
 
 
-        
+
+
+
+
+
+
         target = GameObject.Find(FinalDestinationName).transform;
 
 
@@ -88,11 +92,11 @@ public class Navmesh : MonoBehaviour
 
 
 
-        
-        
 
 
-      
+
+
+
 
 
 
@@ -101,6 +105,12 @@ public class Navmesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        target = my_FieldOfView.My_target;
+
+        // this_agent.target = target;
+
+
+
 
         if (GameObject.Find("TowerA") == null)
         {
@@ -120,10 +130,18 @@ public class Navmesh : MonoBehaviour
         {
             AttackEnable = false;
             target = FinalDestinationObject.transform;
-            Debug.Log("Objeto está vazio");
+           // Debug.Log("Objeto está vazio");
             Enemy = false;
-
         }
+        else
+        {
+            AttackEnable = true;
+           // Debug.Log("Achei um alvo");
+            Enemy = true;
+            NameEnemy = target.gameObject;
+            PrintDraw();
+        }
+
         Move();
 
         // Combat 
@@ -155,112 +173,77 @@ public class Navmesh : MonoBehaviour
     {
 
 
-       
+
 
 
 
     }
 
-    void OnTriggerEnter(Collider collision)
+  
+
+
+
+
+
+    void Attack()
     {
+        Debug.Log("Achei um alvo");
+        EnemyStats = NameEnemy.GetComponent<Stats>();
+
+        if (Enemy)
         {
-            if (collision.gameObject.tag == TagToChase)
-            {
-                //   string contact = collision.transform.name;
-                Enemy = true;
-                AttackEnable = true;
-                string contact2 = collision.gameObject.name;
-                NameEnemy = GameObject.Find(contact2);
-                target = this.NameEnemy.transform;
-                NameToStats = contact2;
-             //   Debug.Log(contact2);
-                EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
-            }
-            if (collision.gameObject.name == FinalDestinationName)
-            {
-                //   string contact = collision.transform.name;
-                Tower = true;
-                AttackEnable = true;
-                string contact2 = collision.gameObject.name;
-                NameEnemy = GameObject.Find(contact2);
-                target = this.NameEnemy.transform;
-                NameToStats = contact2;
-                //  Debug.Log(contact2);
-                ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
 
-            }
-            
-        }
-    }
-    void OnTriggerStay(Collider other) {
-        if (other.gameObject.tag == TagToChase)
-        {
-            //   string contact = collision.transform.name;
-            Enemy = true;
-            AttackEnable = true;
-            string contact2 = other.gameObject.name;
-            NameEnemy = GameObject.Find(contact2);
-            target = this.NameEnemy.transform;
-            NameToStats = contact2;
-         //   Debug.Log(contact2);
-            EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
-        }
-        if (other.gameObject.name == FinalDestinationName)
-        {
-            //   string contact = collision.transform.name;
-            Tower = true;
-            AttackEnable = true;
-            string contact2 = other.gameObject.name;
-            NameEnemy = GameObject.Find(contact2);
-            target = this.NameEnemy.transform;
-            NameToStats = contact2;
-            //  Debug.Log(contact2);
-            ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
-
-        }
-
-
-    }
-    
-
-        void Attack() {
-
-        if (Enemy) {
             EnemyStats.HP -= attack / (2 + EnemyStats.Defense / 100);
-            
-            
+
+
         }
 
 
-        if (Tower) {
-      
-            ThisTower.HP -= 20;
+        if (Tower)
+        {
+
+            //  ThisTower.HP -= 20;
         }
-       
+
 
 
 
     }
-    void Move (){
+    void Move()
+    {
 
         if (Enemy)
         {
             agent.SetDestination(target.position);
         }
-        else if (Tower) {
+        else if (Tower)
+        {
             agent.SetDestination(target.position - RangedToAtk);
 
-        }else 
+        }
+        else
         {
 
             agent.SetDestination(target.position);
         }
-        
+
 
 
     }
 
-    
+
+
+    void PrintDraw()
+    {
+        if (target != null)
+        {
+            float dist = Vector3.Distance(target.position, transform.position);
+            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y / 2, transform.position.z), target.transform.position, Color.blue);
+            //  Debug.DrawRay(new Vector3(transform.position.x + my_FieldOfView.viewRadius, transform.position.y / 2, transform.position.z), target.transform.position, Color.black);
+
+        }
+
+    }
 
 
 

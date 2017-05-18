@@ -95,6 +95,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BulletTower.cs" />
     <Compile Include="Assets\Scripts\EnemyMesh.cs" />
+    <Compile Include="Assets\Scripts\FieldOfView.cs" />
+    <Compile Include="Assets\Scripts\FieldOfViewEditor.cs" />
     <Compile Include="Assets\Scripts\Navmesh.cs" />
     <Compile Include="Assets\Scripts\SpawnPlayer.cs" />
     <Compile Include="Assets\Scripts\Stats.cs" />

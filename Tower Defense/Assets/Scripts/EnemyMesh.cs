@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyMesh : MonoBehaviour
 {
-    [HideInInspector] public Transform target;
+     public Transform target;
     [HideInInspector] private string NameToStats;
     [HideInInspector] private bool AttackEnable;
     [HideInInspector] NavMeshAgent agent;
@@ -13,10 +13,10 @@ public class EnemyMesh : MonoBehaviour
     [HideInInspector] GameObject FinalDestinationObject;  
     [HideInInspector] private float ResetTimetoAttack;
     [HideInInspector] private Stats EnemyStats;
-    [HideInInspector] public bool Enemy;
     [HideInInspector] public bool Tower;
     TowerScript ThisTower;
-  
+    FieldOfView my_FieldOfView;
+ 
     SpawnPlayer spawnPlayer;
 
     [Header("Core")]
@@ -24,6 +24,12 @@ public class EnemyMesh : MonoBehaviour
     public string TagToChase;
     public float TimeBetweenAttack;
     public Vector3 RangedToAtk;
+
+
+    public int HP;
+    public int attack;
+    public int Defense;
+    bool Enemy;
 
     void Start()
     {
@@ -40,16 +46,17 @@ public class EnemyMesh : MonoBehaviour
         }
 
         agent = GetComponent<NavMeshAgent>();      
-        Enemy = false;
+       
         Tower = false;
+        Enemy = false;
         AttackEnable = false;
         ResetTimetoAttack = TimeBetweenAttack;
 
 
-       
 
 
-        
+
+        my_FieldOfView = GetComponent<FieldOfView>();
 
         
         FinalDestinationObject = GameObject.Find(FinalDestinationName);
@@ -62,7 +69,7 @@ public class EnemyMesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        target = my_FieldOfView.My_target;
         if (GameObject.Find("TowerB") == null)
         {
             FinalDestinationName = "TowerB (1)";
@@ -84,7 +91,18 @@ public class EnemyMesh : MonoBehaviour
             target = FinalDestinationObject.transform;
             Debug.Log("Objeto está vazio");
             Enemy = false;
+            
 
+
+        }
+        else
+        {
+            AttackEnable = true;
+            Enemy = true;
+            // Debug.Log("Achei um alvo");
+
+            NameEnemy = target.gameObject;
+            PrintDraw();
         }
         Move();
 
@@ -123,82 +141,28 @@ public class EnemyMesh : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider collision)
-    {
-        {
-            if (collision.gameObject.tag == TagToChase)
-            {
-                //   string contact = collision.transform.name;
-                Enemy = true;
-                AttackEnable = true;
-                string contact2 = collision.gameObject.name;
-                NameEnemy = GameObject.Find(contact2);
-                target = this.NameEnemy.transform;
-                NameToStats = contact2;
-             //   Debug.Log(contact2);
-                EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
-            }
-            if (collision.gameObject.name == FinalDestinationName)
-            {
-                //   string contact = collision.transform.name;
-                Tower = true;
-                AttackEnable = true;
-                string contact2 = collision.gameObject.name;
-                NameEnemy = GameObject.Find(contact2);
-                target = this.NameEnemy.transform;
-                NameToStats = contact2;
-                //  Debug.Log(contact2);
-                ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
-
-            }
-
-        }
-    }
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == TagToChase)
-        {
-            //   string contact = collision.transform.name;
-            Enemy = true;
-            AttackEnable = true;
-            string contact2 = other.gameObject.name;
-            NameEnemy = GameObject.Find(contact2);
-            target = this.NameEnemy.transform;
-            NameToStats = contact2;
-          //  Debug.Log(contact2);
-            EnemyStats = GameObject.Find(NameToStats).GetComponent<Stats>();
-        }
-        if (other.gameObject.name == FinalDestinationName)
-        {
-            //   string contact = collision.transform.name;
-            Tower = true;
-            AttackEnable = true;
-            string contact2 = other.gameObject.name;
-            NameEnemy = GameObject.Find(contact2);
-            target = this.NameEnemy.transform;
-            NameToStats = contact2;
-            //  Debug.Log(contact2);
-            ThisTower = GameObject.Find(FinalDestinationName).GetComponent<TowerScript>();
-
-        }
 
 
-    }
 
 
     void Attack()
     {
+        Debug.Log("Achei um alvo");
+        EnemyStats = NameEnemy.GetComponent<Stats>();
 
         if (Enemy)
         {
-            EnemyStats.HP -= 10;
+
+            EnemyStats.HP -= attack / (2 + EnemyStats.Defense / 100);
+
+
         }
 
 
         if (Tower)
         {
 
-            ThisTower.HP -= 20;
+            //  ThisTower.HP -= 20;
         }
 
 
@@ -208,22 +172,23 @@ public class EnemyMesh : MonoBehaviour
     void Move()
     {
 
-        if (Enemy)
-        {
-            agent.SetDestination(target.position);
-        }
-        else if (Tower)
-        {
-            agent.SetDestination(target.position - RangedToAtk);
-
-        }
-        else
-        {
+      
 
             agent.SetDestination(target.position);
+        
+
+
+
+    }
+    void PrintDraw()
+    {
+        if (target != null)
+        {
+            float dist = Vector3.Distance(target.position, transform.position);
+            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y / 2, transform.position.z), target.transform.position, Color.red);
+            //  Debug.DrawRay(new Vector3(transform.position.x + my_FieldOfView.viewRadius, transform.position.y / 2, transform.position.z), target.transform.position, Color.black);
+
         }
-
-
 
     }
 }

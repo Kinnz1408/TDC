@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
 {
-    [HideInInspector] public Slider HealthBar;
+    public Slider HealthBar;
    
     Ui MyUi;
 
     [Header("Status")]
-    public float HP;
+    public int Level;
+    public int HP;
     public int Attack;
     public int Defense;
     public bool Enemy; // Só para saber quando Adicionar Gold para o Jogador 

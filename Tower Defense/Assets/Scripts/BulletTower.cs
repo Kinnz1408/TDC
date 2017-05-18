@@ -6,10 +6,11 @@ public class BulletTower : MonoBehaviour {
     [HideInInspector] private Transform target;
     [HideInInspector] private string targetName;
     [SerializeField] float spd;
-    [HideInInspector]    [SerializeField] float rayCastOffset;
-    [SerializeField] float rotationalDamp;
-    [HideInInspector] [SerializeField] float detectionDistance;
+    public float rayCastOffset;
+   public float rotationalDamp;
+    public float detectionDistance;
     TowerScript thisTower;
+    Stats Tower_Stats;
     [HideInInspector] public string TowerName;
     Stats stats;
 
@@ -19,6 +20,7 @@ public class BulletTower : MonoBehaviour {
      void Start()
     {
         thisTower = GameObject.Find(TowerName).GetComponent<TowerScript>();
+        Tower_Stats = GameObject.Find(TowerName).GetComponent<Stats>();
         target = thisTower.NameEnemy.transform;
         targetName = target.gameObject.name;
     }
@@ -84,7 +86,7 @@ public class BulletTower : MonoBehaviour {
         if (col.gameObject.name == targetName) {
            
             stats = GameObject.Find(col.gameObject.name).GetComponent<Stats>();
-            stats.HP -= ((thisTower.Atk * (2 ^ thisTower.Level)) + thisTower.Level * 550) / 2;
+            stats.HP -= ((Tower_Stats.Attack * (2 ^ Tower_Stats.Level)) + Tower_Stats.Level * 550) / 2;
             Debug.Log(stats.HP);
             Destroy(gameObject);
         }
